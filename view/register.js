@@ -1,35 +1,38 @@
-function login(event) {
+function register(event) {
   event.preventDefault()
+  let name = document.getElementById('name').value
   let id = document.getElementById('id').value
   let password = document.getElementById('password').value
 
-  if (!id || !password) {
+  if (!name || !id || !password) {
     alert('全部入力してください。')
     return
   }
 
-  fetch('http://localhost:1225/login', {
+  fetch('http://localhost:1225/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      name: name,
       id: id,
       password: password,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
-      if (!data.name) {
-        alert('会員情報が見つかりません。')
+      if (data.sqlState == '23000') {
+        alert('IDが重複しています。')
+        return
+      }
+
+      if (!data.affectedRows) {
+        alert('登録できませんでした。')
         window.location.reload()
       } else {
-        let welcomeText = document.createElement('h3')
-        welcomeText.textContent = data.name + 'さん歓迎します！'
-
-        document.getElementById('form').remove()
-        document.getElementById('all').appendChild(welcomeText)
+        alert('登録が完了しました。')
+        location.href = 'login.html'
       }
     })
     .catch((err) => {

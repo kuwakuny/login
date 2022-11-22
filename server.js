@@ -29,3 +29,15 @@ app.post('/login', (req, res) => {
     }
   })
 })
+
+app.post('/register', (req, res) => {
+  const { name, id, password } = req.body
+  const sql = `INSERT INTO users (name, id, password) VALUES ("${name}","${id}","${password}")`
+  db.query(sql, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+})
