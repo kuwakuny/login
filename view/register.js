@@ -27,10 +27,10 @@ function register(event) {
         return
       }
 
-      if (!data.affectedRows) {
+      if (data.affectedRows == 0) {
         alert('登録できませんでした。')
         window.location.reload()
-      } else {
+      } else if (data.affectedRows == 1) {
         alert('登録が完了しました。')
         location.href = 'login.html'
       }
