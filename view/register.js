@@ -27,12 +27,12 @@ function register(event) {
         return
       }
 
-      if (data.affectedRows == 0) {
-        alert('会員情報の登録に失敗しました。')
-        window.location.reload()
-      } else if (data.affectedRows == 1) {
+      if (data.affectedRows == 1) {
         alert('会員情報の登録が完了しました。')
         location.href = 'login.html'
+      } else if (data.affectedRows == 0) {
+        alert('会員情報の登録に失敗しました。')
+        window.location.reload()
       }
     })
     .catch((err) => {
