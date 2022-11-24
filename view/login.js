@@ -1,7 +1,7 @@
 function login(event) {
   event.preventDefault()
-  let id = document.getElementById('id').value
-  let password = document.getElementById('password').value
+  const id = document.getElementById('id').value
+  const password = document.getElementById('password').value
 
   if (!id || !password) {
     alert('全部入力してください。')
@@ -24,7 +24,7 @@ function login(event) {
       if (!data.name) {
         alert('会員情報が見つかりません。')
         window.location.reload()
-      } else {
+      } else if (data.name) {
         let welcomeText = document.createElement('h3')
         welcomeText.textContent = data.name + 'さん歓迎します！'
 
@@ -34,6 +34,6 @@ function login(event) {
     })
     .catch((err) => {
       alert('DBエラー。担当者にお問い合わせください。')
-      console.log(err)
+      console.error('DBエラー:\n', err)
     })
 }

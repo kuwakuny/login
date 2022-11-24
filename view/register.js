@@ -1,8 +1,8 @@
 function register(event) {
   event.preventDefault()
-  let name = document.getElementById('name').value
-  let id = document.getElementById('id').value
-  let password = document.getElementById('password').value
+  const name = document.getElementById('name').value
+  const id = document.getElementById('id').value
+  const password = document.getElementById('password').value
 
   if (!name || !id || !password) {
     alert('全部入力してください。')
@@ -23,20 +23,20 @@ function register(event) {
     .then((response) => response.json())
     .then((data) => {
       if (data.sqlState == '23000') {
-        alert('IDが重複しています。')
+        alert('すでに存在するIDです。')
         return
       }
 
       if (data.affectedRows == 0) {
-        alert('登録できませんでした。')
+        alert('会員情報の登録に失敗しました。')
         window.location.reload()
       } else if (data.affectedRows == 1) {
-        alert('登録が完了しました。')
+        alert('会員情報の登録が完了しました。')
         location.href = 'login.html'
       }
     })
     .catch((err) => {
       alert('DBエラー。担当者にお問い合わせください。')
-      console.log(err)
+      console.error('DBエラー:\n', err)
     })
 }
