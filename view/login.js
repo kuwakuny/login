@@ -20,7 +20,6 @@ function login(event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
       if (data.name) {
         let welcomeText = document.createElement('h3')
         welcomeText.textContent = data.name + 'さん歓迎します！'
@@ -28,7 +27,7 @@ function login(event) {
         document.getElementById('form').remove()
         document.getElementById('all').appendChild(welcomeText)
       } else if (!data.name) {
-        alert('会員情報が見つかりません。')
+        alert('会員情報が間違っています。')
         window.location.reload()
       }
     })
